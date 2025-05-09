@@ -1,128 +1,199 @@
-# Walmart-Sales-Analysis
-## About
-This project aims to explore the Walmart Sales data to understand top performing branches and products, sales trend of of different products, customer behaviour. The aims is to study how sales strategies can be improved and optimized. The dataset was obtained from the Kaggle Walmart Sales Forecasting Competition.
-## Purposes Of The Project
-The major aim of thie project is to gain insight into the sales data of Walmart to understand the different factors that affect sales of the different branches.
-About Data
-The dataset was obtained from the Kaggle Walmart Sales Forecasting Competition. This dataset contains sales transactions from a three different branches of Walmart, respectively located in Mandalay, Yangon and Naypyitaw. The data contains 17 columns and 1000 rows:
+---
 
+# Walmart Sales Analysis
 
-## Product Analysis
-Conduct analysis on the data to understand the different product lines, the products lines performing best and the product lines that need to be improved.
+## 📊 About the Project
 
-## Sales Analysis
-This analysis aims to answer the question of the sales trends of product. The result of this can help use measure the effectiveness of each sales strategy the business applies and what modificatoins are needed to gain more sales.
+This project explores Walmart sales data to gain insights into top-performing branches and products, sales trends, and customer behavior. The objective is to identify how sales strategies can be improved and optimized for better performance.
 
-## Customer Analysis
-This analysis aims to uncover the different customers segments, purchase trends and the profitability of each customer segment.
+**Dataset Source**: [Kaggle Walmart Sales Forecasting Competition](https://www.kaggle.com/competitions/walmart-sales-forecasting)
 
-## Approach Used
-Data Wrangling: This is the first step where inspection of data is done to make sure NULL values and missing values are detected and data replacement methods are used to replace, missing or NULL values.
-Build a database
-Create table and insert the data.
-Select columns with null values in them. There are no null values in our database as in creating the tables, we set NOT NULL for each field, hence null values are filtered out.
-Feature Engineering: This will help use generate some new columns from existing ones.
-Add a new column named time_of_day to give insight of sales in the Morning, Afternoon and Evening. This will help answer the question on which part of the day most sales are made.
-Add a new column named day_name that contains the extracted days of the week on which the given transaction took place (Mon, Tue, Wed, Thur, Fri). This will help answer the question on which week of the day each branch is busiest.
-Add a new column named month_name that contains the extracted months of the year on which the given transaction took place (Jan, Feb, Mar). Help determine which month of the year has the most sales and profit.
-Exploratory Data Analysis (EDA): Exploratory data analysis is done to answer the listed questions and aims of this project.
+---
 
-Conclusion:
+## 🎯 Project Goals
 
-## Business Questions To Answer
-### Generic Question
-How many unique cities does the data have?
-In which city is each branch?
-### Product
-How many unique product lines does the data have?
-What is the most common payment method?
-What is the most selling product line?
-What is the total revenue by month?
-What month had the largest COGS?
-What product line had the largest revenue?
-What is the city with the largest revenue?
-What product line had the largest VAT?
-Fetch each product line and add a column to those product line showing "Good", "Bad". Good if its greater than average sales
-Which branch sold more products than average product sold?
-What is the most common product line by gender?
-What is the average rating of each product line?
-### Sales
-Number of sales made in each time of the day per weekday
-Which of the customer types brings the most revenue?
-Which city has the largest tax percent/ VAT (Value Added Tax)?
-Which customer type pays the most in VAT?
-### Customer
-How many unique customer types does the data have?
-How many unique payment methods does the data have?
-What is the most common customer type?
-Which customer type buys the most?
-What is the gender of most of the customers?
-What is the gender distribution per branch?
-Which time of the day do customers give most ratings?
-Which time of the day do customers give most ratings per branch?
-Which day fo the week has the best avg ratings?
-Which day of the week has the best average ratings per branch?
-Revenue And Profit Calculations
-$ COGS = unitsPrice * quantity $
+* Understand sales performance across different Walmart branches.
+* Analyze product line performance to identify high and low performers.
+* Uncover customer behavior trends and segment profitability.
+* Provide actionable recommendations to optimize sales strategies.
 
-$ VAT = 5% * COGS $
+---
 
-V
-A
-T
- is added to the 
-C
-O
-G
-S
- and this is what is billed to the customer.
+## 📂 Dataset Overview
 
-$ total(gross_sales) = VAT + COGS $
+* **Branches**: Mandalay, Yangon, Naypyitaw
+* **Records**: 1,000 rows, 17 columns
+* **Key Fields**: Invoice ID, Branch, City, Customer Type, Product Line, Unit Price, Quantity, Date, Time, COGS, Total, VAT, Gross Income, Rating
 
-$ grossProfit(grossIncome) = total(gross_sales) - COGS $
+---
 
-Gross Margin is gross profit expressed in percentage of the total(gross profit/revenue)
+## 🔍 Analysis Performed
 
-$ \text{Gross Margin} = \frac{\text{gross income}}{\text{total revenue}} $
+### 🏣 Product Analysis
 
-Example with the first row in our DB:
+* Identified best and worst-performing product lines.
+* Categorized product lines based on performance (Good/Bad).
 
-Data given:
+### 💰 Sales Analysis
 
-$ \text{Unite Price} = 45.79 $
-$ \text{Quantity} = 7 $
-$ COGS = 45.79 * 7 = 320.53 $
+* Tracked sales trends over time.
+* Measured monthly revenue and cost of goods sold (COGS).
+* Analyzed revenue contribution by customer type.
 
-$ \text{VAT} = 5% * COGS\= 5% 320.53 = 16.0265 $
+### 👥 Customer Analysis
 
-$ total = VAT + COGS\= 16.0265 + 320.53 = 
-336.5565
+* Segmented customers by gender, time of purchase, and rating behavior.
+* Identified profitable customer types and peak engagement times.
 
-$ \text{Gross Margin Percentage} = \frac{\text{gross income}}{\text{total revenue}}\=\frac{16.0265}{336.5565} = 0.047619\\approx 4.7619% $
+---
 
-Code
-For the rest of the code, check the SQL_queries.sql file
+## 🧰 Approach
 
--- Create database
-CREATE DATABASE IF NOT EXISTS walmartSales;
+### 1. **Data Wrangling**
 
--- Create table
-CREATE TABLE IF NOT EXISTS sales(
-	invoice_id VARCHAR(30) NOT NULL PRIMARY KEY,
-    branch VARCHAR(5) NOT NULL,
-    city VARCHAR(30) NOT NULL,
-    customer_type VARCHAR(30) NOT NULL,
-    gender VARCHAR(30) NOT NULL,
-    product_line VARCHAR(100) NOT NULL,
-    unit_price DECIMAL(10,2) NOT NULL,
-    quantity INT NOT NULL,
-    tax_pct FLOAT(6,4) NOT NULL,
-    total DECIMAL(12, 4) NOT NULL,
-    date DATETIME NOT NULL,
-    time TIME NOT NULL,
-    payment VARCHAR(15) NOT NULL,
-    cogs DECIMAL(10,2) NOT NULL,
-    gross_margin_pct FLOAT(11,9),
-    gross_income DECIMAL(12, 4),
-    rating FLOAT(2, 1)
+* Cleaned and inspected data for missing/null values.
+
+### 2. **Database Setup**
+
+```sql
+CREATE TABLE Sales (
+  invoice_id VARCHAR(30) NOT NULL PRIMARY KEY,
+  branch VARCHAR(5) NOT NULL,
+  city VARCHAR(30) NOT NULL,
+  customer_type VARCHAR(30) NOT NULL,
+  gender VARCHAR(30) NOT NULL,
+  product_line VARCHAR(50) NOT NULL,
+  unit_price DECIMAL(10,2) NOT NULL,
+  quantity INT NOT NULL,
+  VAT DECIMAL(10,2) NOT NULL,
+  total DECIMAL(10,2) NOT NULL,
+  date DATE NOT NULL,
+  time TIME NOT NULL,
+  payment VARCHAR(30) NOT NULL,
+  cogs DECIMAL(10,2) NOT NULL,
+  gross_margin_percentage DECIMAL(10,9) NOT NULL,
+  gross_income DECIMAL(10,2) NOT NULL,
+  rating DECIMAL(2,1) NOT NULL
 );
+```
+
+### 3. **Feature Engineering**
+
+```sql
+ALTER TABLE sales ADD COLUMN time_of_day VARCHAR(20);
+UPDATE sales SET time_of_day = (
+  CASE
+    WHEN time BETWEEN '00:00:00' AND '11:59:00' THEN 'Morning'
+    WHEN time BETWEEN '12:00:00' AND '16:00:00' THEN 'Afternoon'
+    WHEN time BETWEEN '16:01:00' AND '19:00:00' THEN 'Evening'
+    ELSE 'Night'
+  END
+);
+
+ALTER TABLE sales ADD COLUMN day_name VARCHAR(15);
+UPDATE sales SET day_name = DAYNAME(date);
+
+ALTER TABLE sales ADD COLUMN month_name VARCHAR(15);
+UPDATE sales SET month_name = MONTHNAME(date);
+```
+
+### 4. **Exploratory Data Analysis (EDA)**
+
+Used SQL to explore and analyze the data. Sample business questions answered:
+
+---
+
+## 📊 Sample Business Questions Answered
+
+### Unique Cities in Dataset
+
+```sql
+SELECT DISTINCT city FROM sales;
+```
+
+### Most Selling Product Line
+
+```sql
+SELECT product_line, COUNT(*) AS qty
+FROM sales
+GROUP BY product_line
+ORDER BY qty DESC;
+```
+
+### Total Revenue by Month
+
+```sql
+SELECT month_name AS month, SUM(total) AS total_revenue
+FROM sales
+GROUP BY month_name
+ORDER BY total_revenue DESC;
+```
+
+### Time of Day with Most Ratings
+
+```sql
+SELECT time_of_day, COUNT(rating) AS rating
+FROM sales
+GROUP BY time_of_day
+ORDER BY rating DESC;
+```
+
+---
+
+## 📈 Revenue & Profit Calculations
+
+* **COGS** = Unit Price × Quantity
+* **VAT** = 5% × COGS
+* **Total (Gross Sales)** = COGS + VAT
+* **Gross Income (Profit)** = Total - COGS
+* **Gross Margin %** = Gross Income ÷ Total Revenue
+
+**Example Calculation:**
+
+* Unit Price: 45.79, Quantity: 7
+* COGS = 320.53, VAT = 16.03, Total = 336.56
+* Gross Margin = \~4.76%
+
+---
+
+## 📊 Recommendations
+
+### ✅ Optimize High-Performing Product Lines
+
+Focus marketing and stock allocation efforts on top-selling product lines. Consider bundling them with underperforming ones to boost their visibility and sales.
+
+### ✅ Refine Sales Strategy by Time of Day
+
+Since sales and ratings vary by time of day, schedule promotions and staff allocation accordingly — for instance, increasing staffing or offering discounts during peak hours.
+
+### ✅ Leverage Customer Type Insights
+
+If one customer type brings in more revenue, design loyalty programs, targeted ads, or upsell strategies tailored to them.
+
+### ✅ Enhance Month-Based Campaigns
+
+Identify the months with high revenue and replicate successful strategies during low-performing months to balance out seasonal dips.
+
+### ✅ Product Line Performance Monitoring
+
+Continue monitoring product line performance and flag lines consistently underperforming for review. Consider revising pricing, packaging, or positioning.
+
+---
+
+## 💾 For Full SQL Scripts
+
+Check the [`sql/SQL_queries.sql`](./sql/SQL_queries.sql)  for complete queries used.
+
+---
+
+> 📌 **Note:** This project was created as part of my data analysis portfolio to demonstrate proficiency in SQL, data wrangling, and EDA.
+
+---
+
+📢 **Connect with Me**
+
+* [LinkedIn](https://www.linkedin.com/)
+* [Website](https://yourwebsite.com)
+* Email: [youremail@example.com](mailto:youremail@example.com)
+
+
