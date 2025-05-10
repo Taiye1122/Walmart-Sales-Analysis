@@ -105,10 +105,15 @@ Used SQL to explore and analyze the data. Sample business questions answered:
 
 ## 📊 Sample Business Questions Answered
 
-### Unique Cities in Dataset
+### What is the most common product line by gender?
 
 ```sql
-SELECT DISTINCT city FROM sales;
+select gender, product_line
+from (SELECT gender, product_line, COUNT(product_line) AS count,
+        ROW_NUMBER() OVER (PARTITION BY gender ORDER BY COUNT(product_line) DESC) AS rn
+    FROM sales
+    GROUP BY gender, product_line) as ranked
+where rn = 1;
 ```
 
 ### Most Selling Product Line
