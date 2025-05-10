@@ -6,7 +6,7 @@
 
 This project explores Walmart sales data to gain insights into top-performing branches and products, sales trends, and customer behavior. The objective is to identify how sales strategies can be improved and optimized for better performance.
 
-**Dataset Source**: [Kaggle Walmart Sales Forecasting Competition](https://www.kaggle.com/competitions/walmart-sales-forecasting)
+#### Dataset Source: [Kaggle Walmart Sales Forecasting Competition](https://www.kaggle.com/competitions/walmart-sales-forecasting)
 
 ---
 
@@ -140,22 +140,6 @@ ORDER BY rating DESC;
 
 ---
 
-## 📈 Revenue & Profit Calculations
-
-* **COGS** = Unit Price × Quantity
-* **VAT** = 5% × COGS
-* **Total (Gross Sales)** = COGS + VAT
-* **Gross Income (Profit)** = Total - COGS
-* **Gross Margin %** = Gross Income ÷ Total Revenue
-
-**Example Calculation:**
-
-* Unit Price: 45.79, Quantity: 7
-* COGS = 320.53, VAT = 16.03, Total = 336.56
-* Gross Margin = \~4.76%
-
----
-
 ## 📊 Recommendations
 
 ### ✅ Optimize High-Performing Product Lines
@@ -182,18 +166,8 @@ Continue monitoring product line performance and flag lines consistently underpe
 
 ## 💾 For Full SQL Scripts
 
-Check the [`sql/SQL_queries.sql`](./sql/SQL_queries.sql)  for complete queries used.
+Check the [`SQL_queries`](Walmart.sql)  for complete queries used.
 
----
 
-> 📌 **Note:** This project was created as part of my data analysis portfolio to demonstrate proficiency in SQL, data wrangling, and EDA.
-
----
-
-📢 **Connect with Me**
-
-* [LinkedIn](https://www.linkedin.com/)
-* [Website](https://yourwebsite.com)
-* Email: [youremail@example.com](mailto:youremail@example.com)
 
 
